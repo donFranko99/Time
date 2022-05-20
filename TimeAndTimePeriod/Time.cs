@@ -16,18 +16,12 @@ namespace TimeAndTimePeriod
         /// Public constructor using 3 variables of type Byte (hours, minutes, seconds).
         /// If only 2 parameters are used, seconds are set to 0. If only 1 is used, 
         /// both seconds and minutes are set to 0.
-        /// If any parameter given is <0, ArgumentException is thrown.
         /// </summary>
         /// <param name="hours"></param>
         /// <param name="minutes"></param>
         /// <param name="seconds"></param>
-        /// <exception cref="ArgumentException"></exception>
         public Time(byte hours, byte minutes=0, byte seconds=0)
         {
-            if (hours<0 || minutes<0 || seconds<0)
-            {
-                throw new ArgumentException("Invalid argument, cant be less than 0");
-            }
             Hours = (byte)(hours % 24);
             Minutes = (byte)(minutes % 60);
             Seconds = (byte)(seconds % 60);
@@ -61,7 +55,7 @@ namespace TimeAndTimePeriod
         /// <summary>
         /// Function that returns a time 0:0:0
         /// </summary>
-        /// <returns></returns>
+        /// <returns>00:00:00</returns>
         public static Time Zero() => new Time(0);
         public Time Plus(TimePeriod t)
         {
