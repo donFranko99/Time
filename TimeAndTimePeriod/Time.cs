@@ -58,17 +58,29 @@ namespace TimeAndTimePeriod
             Minutes = (byte)(Byte.Parse(data[1]) % 60);
             Hours = (byte)(Byte.Parse(data[0]) % 24);
         }
-        public Time Plus(TimePeriod t)
-        {
-            var dataT = t.Duration.Split(":");
-            return new Time(Hours, Minutes, Seconds);
-        }
         /// <summary>
         /// Function that returns a time 0:0:0
         /// </summary>
         /// <returns></returns>
         public static Time Zero() => new Time(0);
+        public Time Plus(TimePeriod t)
+        {
+            var dataT = t.Duration.Split(":");
+            if (dataT.Length != 3) throw new FormatException("Invalid data format. Correct input data format is h:m:s");
+            byte h = (byte)(Byte.Parse(dataT[0]) % 24);
+            byte m = (byte)(Byte.Parse(dataT[1]) % 60);
+            byte s = (byte)(Byte.Parse(dataT[2]) % 60);
 
+            return new Time(Hours, Minutes, Seconds);
+        }
+        public static Time Plus(Time t, TimePeriod p)
+        {
+            return t.Plus(p);
+        }
+        public static Time operator +(Time t, TimePeriod p)
+        {
+            return Time.Plus(t, p);
+        }
         public override bool Equals(object? obj)
         {
             return obj is Time time &&

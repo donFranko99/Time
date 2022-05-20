@@ -13,30 +13,63 @@ namespace TimeAndTimePeriod
 
         public TimePeriod(long h, long m , long s = 0)
         {
+            if (h<0 || m<0 || s<0)
+            {
+                throw new ArgumentException("Invalid argument. Hours, minutes and seconds must be higher than 0.");
+            }
             seconds = h*3600 + m*60 + s;
         }
         public TimePeriod(long s = 0)
         {
+            if (s < 0)
+            {
+                throw new ArgumentException("Invalid argument. Seconds must be higher than 0.");
+            }
             seconds = s;
         }
         public TimePeriod(Time t1, Time t2)
         {
-            seconds = Math.Abs((t2.Hours-t1.Hours)*3600 + (t2.Minutes-t1.Minutes)*60 + (t2.Seconds-t1.Seconds));
+            long tmp = (t2.Hours - t1.Hours) * 3600 + (t2.Minutes - t1.Minutes) * 60 + (t2.Seconds - t1.Seconds);
+            if (tmp<0)
+            {
+                tmp += 86400;
+            }
+            seconds = tmp;
+        }
+
+        public TimePeriod Multiply(int n)
+        {
+            if (n < 0) throw new InvalidOperationException("Time period cannot be shorter than 0s");
+            return new TimePeriod(seconds*n);
         }
 
         public TimePeriod Plus(TimePeriod t)
         {
             return new TimePeriod(seconds + t.seconds);
         }
+        public TimePeriod Minus(TimePeriod t)
+        {
+            if (seconds - t.seconds<0) throw new InvalidOperationException("Time period cannot be shorter than 0s");
+            return new TimePeriod(seconds - t.seconds);
+        }
         public static TimePeriod Plus(TimePeriod left, TimePeriod right)
         {
             return new TimePeriod(left.seconds + right.seconds);
+        }
+        public static TimePeriod Minus(TimePeriod left, TimePeriod right)
+        {
+            if (left.seconds - right.seconds < 0) throw new InvalidOperationException("Time period cannot be shorter than 0s");
+            return new TimePeriod(left.seconds - right.seconds);
         }
         public static TimePeriod operator +(TimePeriod left, TimePeriod right)
         {
             return TimePeriod.Plus(left, right);
         }
-        
+        public static TimePeriod operator -(TimePeriod left, TimePeriod right)
+        {
+            return TimePeriod.Minus(left, right);
+        }
+
 
         public override bool Equals(object? obj)
         {
