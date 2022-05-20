@@ -83,5 +83,53 @@ namespace TimeAndTimePeriod
             Assert.AreEqual(t.Minutes, 0);
             Assert.AreEqual(t.Seconds, 0);
         }
+
+        [TestMethod]
+        public void Equals_Obj_True()
+        {
+            object left = new Time(6,7,8);
+            Time right = new Time("6:7:8");
+            Assert.IsTrue(right.Equals(left));
+        }
+
+        [TestMethod]
+        public void Equals_Time_True()
+        {
+            Time left = new Time(6, 7, 8);
+            Time right = new Time("6:7:8");
+            Assert.IsTrue(right.Equals(left));
+        }
+        [TestMethod]
+        public void Equals_Obj_False()
+        {
+            object left = new Time(6, 6, 8);
+            Time right = new Time("6:7:8");
+            Assert.IsFalse(right.Equals(left));
+        }
+
+        [TestMethod]
+        public void Equals_Time_False()
+        {
+            Time left = new Time(6, 6, 8);
+            Time right = new Time("6:7:8");
+            Assert.IsFalse(right.Equals(left));
+        }
+
+        [TestMethod]
+        public void CompareTo_Time()
+        {
+            Time left1 = new Time(6, 6, 8);
+            Time right1 = new Time("6:7:8");
+
+            Time left2 = new Time(6, 8, 8);
+            Time right2 = new Time("6:8:8");
+
+            Time left3 = new Time(9, 8, 8);
+            Time right3 = new Time("8:8:8");
+
+            Assert.IsTrue(left1.CompareTo(right1) < 0);
+            Assert.IsTrue(left2.CompareTo(right2) == 0);
+            Assert.IsTrue(left3.CompareTo(right3) > 0);
+        }
     }
 }
