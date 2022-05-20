@@ -12,19 +12,61 @@ namespace TimeAndTimePeriod
         public  byte Minutes { get; }
         public  byte Seconds { get; }
 
+        /// <summary>
+        /// Public constructor using 3 variables of type Byte (hours, minutes, seconds).
+        /// If only 2 parameters are used, seconds are set to 0. If only 1 is used, 
+        /// both seconds and minutes are set to 0.
+        /// If any parameter given is <0, ArgumentException is thrown.
+        /// </summary>
+        /// <param name="hours"></param>
+        /// <param name="minutes"></param>
+        /// <param name="seconds"></param>
+        /// <exception cref="ArgumentException"></exception>
         public Time(byte hours, byte minutes=0, byte seconds=0)
         {
+            if (hours<0 || minutes<0 || seconds<0)
+            {
+                throw new ArgumentException("Invalid argument, cant be less than 0");
+            }
             Hours = (byte)(hours % 24);
             Minutes = (byte)(minutes % 60);
             Seconds = (byte)(seconds % 60);
         }
+        /// <summary>
+        /// Public constructor with an string argument. Accepted data format is h:m:s. 
+        /// If format is wrong or numbers converted from the string are less then 0,
+        /// respective Exception is thrown.
+        /// </summary>
+        /// <param name="time"></param>
+        /// <exception cref="FormatException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public Time(string time)
         {
             var data = time.Split(':');
-            Hours = (byte)(Byte.Parse(data[0])%24);
-            Minutes = (byte)(Byte.Parse(data[1])%60);
-            Seconds = (byte)(Byte.Parse(data[2])%60);
+            if (data.Length != 3)
+            {
+                throw new FormatException("Invalid data format. Correct input data format is h:m:s");
+            }
+            foreach(string n in data)
+            {
+                if (int.Parse(n)<0)
+                {
+                    throw new ArgumentException("Invalid argument, cant be less than 0");
+                }
+            }
+            Seconds = (byte)(Byte.Parse(data[2]) % 60);
+            Minutes = (byte)(Byte.Parse(data[1]) % 60);
+            Hours = (byte)(Byte.Parse(data[0]) % 24);
         }
+        public Time Plus(TimePeriod t)
+        {
+            var dataT = t.Duration.Split(":");
+            return new Time(Hours, Minutes, Seconds);
+        }
+        /// <summary>
+        /// Function that returns a time 0:0:0
+        /// </summary>
+        /// <returns></returns>
         public static Time Zero() => new Time(0);
 
         public override bool Equals(object? obj)

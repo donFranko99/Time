@@ -24,6 +24,20 @@ namespace TimeAndTimePeriod
             seconds = Math.Abs((t2.Hours-t1.Hours)*3600 + (t2.Minutes-t1.Minutes)*60 + (t2.Seconds-t1.Seconds));
         }
 
+        public TimePeriod Plus(TimePeriod t)
+        {
+            return new TimePeriod(seconds + t.seconds);
+        }
+        public static TimePeriod Plus(TimePeriod left, TimePeriod right)
+        {
+            return new TimePeriod(left.seconds + right.seconds);
+        }
+        public static TimePeriod operator +(TimePeriod left, TimePeriod right)
+        {
+            return TimePeriod.Plus(left, right);
+        }
+        
+
         public override bool Equals(object? obj)
         {
             return obj is TimePeriod period &&
