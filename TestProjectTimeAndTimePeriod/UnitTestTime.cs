@@ -1,8 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestProjectTimeAndTimePeriod;
+using TimeAndTimePeriod;
 using System;
 
-namespace TimeAndTimePeriod
+namespace TestProjectTimeAndTimePeriod
 {
     [TestClass]
     public class UnitTestTime
@@ -130,6 +130,62 @@ namespace TimeAndTimePeriod
             Assert.IsTrue(left1.CompareTo(right1) < 0);
             Assert.IsTrue(left2.CompareTo(right2) == 0);
             Assert.IsTrue(left3.CompareTo(right3) > 0);
+        }
+
+        [TestMethod]
+        public void Operators_Equal_NotEqual()
+        {
+            Time left1 = new Time(6, 7, 8);
+            Time right1 = new Time("6:7:8");
+
+            Time left2 = new Time(6, 8, 8);
+            Time right2 = new Time("6:8:9");
+
+            
+            Assert.IsTrue(left1==right1);
+            Assert.IsTrue(left2!=right2);
+        }
+
+        [TestMethod]
+        public void Operators_Greater_Lesser()
+        {
+            Time left = new Time(6, 6, 6);
+            Time right = new Time("7:7:7");
+
+            Assert.IsTrue(left < right);
+            Assert.IsFalse(left > right);
+        }
+
+        [TestMethod]
+        public void Operators_GreaterOrEqual_LesserOrEqual()
+        {
+            Time left = new Time(6, 6, 6);
+            Time right = new Time("7:7:7");
+
+            Assert.IsTrue(left <= right);
+            Assert.IsFalse(left >= right);
+
+            left = new Time(7, 7, 7);
+
+            Assert.IsTrue(left <= right);
+            Assert.IsTrue(left >= right);
+        }
+
+        [TestMethod]
+        public void HashCode()
+        {
+            Time t1 = new Time(6, 6, 6);
+            Time t2 = new Time("6:6:6");
+
+            Time t3 = new Time(7, 7, 7);
+            Time t4 = new Time(7, 7, 7);
+
+            Assert.IsTrue(t1.GetHashCode()==t2.GetHashCode());
+            Assert.IsTrue(t3.GetHashCode() == t4.GetHashCode());
+
+            Assert.IsFalse(t1.GetHashCode() == t3.GetHashCode());
+            Assert.IsFalse(t2.GetHashCode() == t4.GetHashCode());
+
         }
     }
 }

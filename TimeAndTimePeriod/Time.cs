@@ -60,7 +60,6 @@ namespace TimeAndTimePeriod
         public Time Plus(TimePeriod t)
         {
             var dataT = t.Duration.Split(":");
-            if (dataT.Length != 3) throw new FormatException("Invalid data format. Correct input data format is h:m:s");
             byte h = (byte)(Byte.Parse(dataT[0]) % 24);
             byte m = (byte)(Byte.Parse(dataT[1]) % 60);
             byte s = (byte)(Byte.Parse(dataT[2]) % 60);
@@ -78,7 +77,6 @@ namespace TimeAndTimePeriod
         public Time Minus(TimePeriod t)
         {
             var dataT = t.Duration.Split(":");
-            if (dataT.Length != 3) throw new FormatException("Invalid data format. Correct input data format is h:m:s");
             byte h = (byte)(Byte.Parse(dataT[0]) % 24);
             byte m = (byte)(Byte.Parse(dataT[1]) % 60);
             byte s = (byte)(Byte.Parse(dataT[2]) % 60);
