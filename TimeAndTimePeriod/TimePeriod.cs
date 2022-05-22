@@ -42,7 +42,14 @@ namespace TimeAndTimePeriod
             if (n < 0) throw new InvalidOperationException("Time period cannot be shorter than 0s");
             return new TimePeriod(seconds*n);
         }
-
+        public static TimePeriod Multiply(TimePeriod t, int n)
+        {
+            return t.Multiply(n);
+        }
+        public static TimePeriod operator *(TimePeriod t, int n)
+        {
+            return Multiply(t, n);
+        }
         public TimePeriod Plus(TimePeriod t)
         {
             return new TimePeriod(seconds + t.seconds);
