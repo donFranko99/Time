@@ -192,11 +192,18 @@ namespace TestProjectTimeAndTimePeriod
         }
 
         [TestMethod]
-        public void EqualsTimePeriod_Time_True()
+        public void EqualsTimePeriod_TimePeriod_True()
         {
             TimePeriod left = new TimePeriod(3661);
             TimePeriod right = new TimePeriod(3661);
             Assert.IsTrue(right.Equals(left));
+        }
+        [TestMethod]
+        public void EqualsTimePeriod_TimePeriod_Null()
+        {
+            TimePeriod left = new TimePeriod(3661);
+            TimePeriod right = new TimePeriod();
+            Assert.IsFalse(right.Equals(left));
         }
         [TestMethod]
         public void EqualsTimePeriod_Obj_False()
