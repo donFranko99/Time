@@ -116,5 +116,71 @@ namespace TestProjectTimeAndTimePeriod
 
             p = p * n;
         }
+
+        [TestMethod]
+        public void Plus_TimePeriod()
+        {
+            TimePeriod p1 = new TimePeriod(3600);
+            TimePeriod p2 = new TimePeriod(3600);
+
+            p1 = p1.Plus(p2);
+
+            Assert.IsTrue(p1.Duration == "2:0:0");
+
+            p1 = TimePeriod.Plus(p1, p2);
+
+            Assert.IsTrue(p1.Duration == "3:0:0");
+
+            p1 = p1 + p2;
+
+            Assert.IsTrue(p1.Duration == "4:0:0");
+        }
+
+        [TestMethod]
+        public void Minus_TimePeriod()
+        {
+            TimePeriod p1 = new TimePeriod(3600*4);
+            TimePeriod p2 = new TimePeriod(3600);
+
+            p1 = p1.Minus(p2);
+
+            Assert.IsTrue(p1.Duration == "3:0:0");
+
+            p1 = TimePeriod.Minus(p1, p2);
+
+            Assert.IsTrue(p1.Duration == "2:0:0");
+
+            p1 = p1 - p2;
+
+            Assert.IsTrue(p1.Duration == "1:0:0");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Minus_TimePeriod_InvalidOperation_Method()
+        {
+            TimePeriod p1 = new TimePeriod(3600);
+            TimePeriod p2 = new TimePeriod(3600 * 4);
+
+            p1= p1.Minus(p2);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Minus_TimePeriod_InvalidOperation_StaticMethod()
+        {
+            TimePeriod p1 = new TimePeriod(3600);
+            TimePeriod p2 = new TimePeriod(3600 * 4);
+
+            p1 = TimePeriod.Minus(p1,p2);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Minus_TimePeriod_InvalidOperation_Operator()
+        {
+            TimePeriod p1 = new TimePeriod(3600);
+            TimePeriod p2 = new TimePeriod(3600 * 4);
+
+            p1 = p1 - p2;
+        }
     }
 }
