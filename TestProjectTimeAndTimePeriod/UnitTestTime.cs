@@ -85,7 +85,7 @@ namespace TestProjectTimeAndTimePeriod
         }
 
         [TestMethod]
-        public void Equals_Obj_True()
+        public void EqualsTime_Obj_True()
         {
             object left = new Time(6,7,8);
             Time right = new Time("6:7:8");
@@ -93,14 +93,14 @@ namespace TestProjectTimeAndTimePeriod
         }
 
         [TestMethod]
-        public void Equals_Time_True()
+        public void EqualsTime_Time_True()
         {
             Time left = new Time(6, 7, 8);
             Time right = new Time("6:7:8");
             Assert.IsTrue(right.Equals(left));
         }
         [TestMethod]
-        public void Equals_Obj_False()
+        public void EqualsTime_Obj_False()
         {
             object left = new Time(6, 6, 8);
             Time right = new Time("6:7:8");
@@ -108,7 +108,7 @@ namespace TestProjectTimeAndTimePeriod
         }
 
         [TestMethod]
-        public void Equals_Time_False()
+        public void EqualsTime_Time_False()
         {
             Time left = new Time(6, 6, 8);
             Time right = new Time("6:7:8");
@@ -116,7 +116,7 @@ namespace TestProjectTimeAndTimePeriod
         }
 
         [TestMethod]
-        public void CompareTo_Time()
+        public void CompareTimeTo_Time()
         {
             Time left1 = new Time(6, 6, 8);
             Time right1 = new Time("6:7:8");
@@ -133,7 +133,7 @@ namespace TestProjectTimeAndTimePeriod
         }
 
         [TestMethod]
-        public void Operators_Equal_NotEqual()
+        public void OperatorsTime_Equal_NotEqual()
         {
             Time left1 = new Time(6, 7, 8);
             Time right1 = new Time("6:7:8");
@@ -147,7 +147,7 @@ namespace TestProjectTimeAndTimePeriod
         }
 
         [TestMethod]
-        public void Operators_Greater_Lesser()
+        public void OperatorsTime_Greater_Lesser()
         {
             Time left = new Time(6, 6, 6);
             Time right = new Time("7:7:7");
@@ -157,7 +157,7 @@ namespace TestProjectTimeAndTimePeriod
         }
 
         [TestMethod]
-        public void Operators_GreaterOrEqual_LesserOrEqual()
+        public void OperatorsTime_GreaterOrEqual_LesserOrEqual()
         {
             Time left = new Time(6, 6, 6);
             Time right = new Time("7:7:7");
@@ -172,7 +172,7 @@ namespace TestProjectTimeAndTimePeriod
         }
 
         [TestMethod]
-        public void HashCode()
+        public void HashCodeTime()
         {
             Time t1 = new Time(6, 6, 6);
             Time t2 = new Time("6:6:6");

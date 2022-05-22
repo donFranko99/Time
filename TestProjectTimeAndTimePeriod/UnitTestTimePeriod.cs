@@ -182,5 +182,109 @@ namespace TestProjectTimeAndTimePeriod
 
             p1 = p1 - p2;
         }
+
+        [TestMethod]
+        public void EqualsTimePeriod_Obj_True()
+        {
+            object left = new TimePeriod(3661);
+            TimePeriod right = new TimePeriod(3661);
+            Assert.IsTrue(right.Equals(left));
+        }
+
+        [TestMethod]
+        public void EqualsTimePeriod_Time_True()
+        {
+            TimePeriod left = new TimePeriod(3661);
+            TimePeriod right = new TimePeriod(3661);
+            Assert.IsTrue(right.Equals(left));
+        }
+        [TestMethod]
+        public void EqualsTimePeriod_Obj_False()
+        {
+            object left = new TimePeriod(3661);
+            TimePeriod right = new  TimePeriod(3662);
+            Assert.IsFalse(right.Equals(left));
+        }
+
+        [TestMethod]
+        public void EqualsTimePeriod_Time_False()
+        {
+            TimePeriod left =  new TimePeriod(3661);
+            TimePeriod right = new TimePeriod(3662);
+            Assert.IsFalse(right.Equals(left));
+        }
+
+        [TestMethod]
+        public void CompareTimePeriodTo_TimeTimePeriod()
+        {
+            TimePeriod left1 =  new TimePeriod(3661);
+            TimePeriod right1 = new TimePeriod(3662);
+                                        
+            TimePeriod left2 =  new TimePeriod(3661);
+            TimePeriod right2 = new TimePeriod(3661);
+                                        
+            TimePeriod left3 =  new TimePeriod(3663);
+            TimePeriod right3 = new TimePeriod(3661);
+
+            Assert.IsTrue(left1.CompareTo(right1) < 0);
+            Assert.IsTrue(left2.CompareTo(right2) == 0);
+            Assert.IsTrue(left3.CompareTo(right3) > 0);
+        }
+
+        [TestMethod]
+        public void OperatorsTimePeriod_Equal_NotEqual()
+        {
+            TimePeriod left1 = new TimePeriod(3661);
+            TimePeriod right1 = new TimePeriod(3661);
+
+            TimePeriod left2 = new TimePeriod(3661);
+            TimePeriod right2 = new TimePeriod(3662);
+
+
+            Assert.IsTrue(left1 == right1);
+            Assert.IsTrue(left2 != right2);
+        }
+
+        [TestMethod]
+        public void OperatorsTimePeriod_Greater_Lesser()
+        {
+            TimePeriod left =  new TimePeriod(3661);
+            TimePeriod right = new TimePeriod(3662);
+
+            Assert.IsTrue(left < right);
+            Assert.IsFalse(left > right);
+        }
+
+        [TestMethod]
+        public void OperatorsTimePeriod_GreaterOrEqual_LesserOrEqual()
+        {
+            TimePeriod left =  new TimePeriod(3661);
+            TimePeriod right = new TimePeriod(3662);
+
+            Assert.IsTrue(left <= right);
+            Assert.IsFalse(left >= right);
+
+            left = new TimePeriod(3662);
+
+            Assert.IsTrue(left <= right);
+            Assert.IsTrue(left >= right);
+        }
+
+        [TestMethod]
+        public void HashCodeTimePeriod()
+        {
+            TimePeriod t1 = new TimePeriod(3661);
+            TimePeriod t2 = new TimePeriod(3661);
+                                    
+            TimePeriod t3 = new TimePeriod(3662);
+            TimePeriod t4 = new TimePeriod(3662);
+
+            Assert.IsTrue(t1.GetHashCode() == t2.GetHashCode());
+            Assert.IsTrue(t3.GetHashCode() == t4.GetHashCode());
+
+            Assert.IsFalse(t1.GetHashCode() == t3.GetHashCode());
+            Assert.IsFalse(t2.GetHashCode() == t4.GetHashCode());
+
+        }
     }
 }
